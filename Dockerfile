@@ -90,7 +90,7 @@ RUN tar xvfz SpeechSDK-Linux-1.37.0.tar.gz \
 
 FROM base AS freeswitch-modules
 WORKDIR /usr/local/src
-RUN git clone --depth 1 https://github.com/sptmru/jambonz-freeswitch-modules
+RUN git clone --depth 1 https://github.com/sptmru/jambonz-freeswitch-modules freeswitch-modules
 
 FROM base AS spandsp
 WORKDIR /usr/local/src
