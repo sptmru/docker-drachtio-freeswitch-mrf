@@ -1,12 +1,12 @@
 <configuration name="avmd.conf" description="AVMD config">
-  <settings>
+     <settings>
 
-  <!-- Edit these settings to change default behaviour
+          <!-- Edit these settings to change default behaviour
        of each avmd session. Settings can be overwritten
        by values passed dynamically per each session -->
 
 
-      <!-- Global settings -->
+          <!-- Global settings -->
 
           <!-- define/undefine this to enable/disable logging of avmd
                intermediate computations to log -->
@@ -23,10 +23,10 @@
                to integers and returning arc cos values given these integer
                indices into table -->
           <param name="fast_math" value="0"/>
-      <!-- Global settings end -->
+          <!-- Global settings end -->
 
 
-      <!-- Per call (session) settings. These settings can be overwritten
+          <!-- Per call (session) settings. These settings can be overwritten
            with custom/different values per each avmd session -->
 
           <!-- define/undefine this to classify avmd beep detection as valid
@@ -34,40 +34,40 @@
                in the SMA buffer without reset -->
           <param name="require_continuous_streak" value="1"/>
 
-            <!-- required number of consecutive elements in the SMA buffer
+          <!-- required number of consecutive elements in the SMA buffer
                  without reset. This parameter helps to avoid false beeps, bigger this value is
                 smaller the probability of getting false detection -->
-                <param name="sample_n_continuous_streak" value="3"/>
+          <param name="sample_n_continuous_streak" value="1"/>
 
-                <!-- define number of samples to skip starting from the beginning
+          <!-- define number of samples to skip starting from the beginning
                      of the frame and/or after reset  has happened. This serves the purpose of skipping first few
                     estimations on each frame, as these estimations may be inaccurate. This parameter also helps
                     to give more robust detections when it's value is increased (up to scertain limit of about 60). -->
-                <param name="sample_n_to_skip" value="0"/>
-    
-                <param name="require_continuous_streak_amp" value="1"/>
-                <param name="sample_n_continuous_streak_amp" value="3"/>
-    
-                <!-- define/undefine this to enable/disable simplified estimation
+          <param name="sample_n_to_skip" value="0"/>
+
+          <param name="require_continuous_streak_amp" value="0"/>
+          <param name="sample_n_continuous_streak_amp" value="3"/>
+
+          <!-- define/undefine this to enable/disable simplified estimation
                      of frequency based on approximation of sin(x) with (x)
                      in the range x=[0,PI/2] -->
-                <param name="simplified_estimation" value="1"/>
-    
-                <!-- define/undefine to enable/disable avmd on internal channel -->
-                <param name="inbound_channel" value="1"/>
-    
-                <!-- define/undefine to enable/disable avmd on external channel -->
-                <param name="outbound_channel" value="0"/>
-    
-                <!-- determines the mode of detection, default is both amplitude and frequency -->
-                <param name="detection_mode" value="2"/>
-    
-                <!-- number of detection threads running per each avmd session -->
-                <param name="detectors_n" value="36"/>
-    
-                <!-- number of lagged detection threads running per each avmd session -->
-                <param name="detectors_lagged_n" value="1"/>
-    
-            <!-- Per call settings end -->
-        </settings>
-    </configuration>
+          <param name="simplified_estimation" value="1"/>
+
+          <!-- define/undefine to enable/disable avmd on internal channel -->
+          <param name="inbound_channel" value="1"/>
+
+          <!-- define/undefine to enable/disable avmd on external channel -->
+          <param name="outbound_channel" value="0"/>
+
+          <!-- determines the mode of detection, default is both amplitude and frequency -->
+          <param name="detection_mode" value="0"/>
+
+          <!-- number of detection threads running per each avmd session -->
+          <param name="detectors_n" value="36"/>
+
+          <!-- number of lagged detection threads running per each avmd session -->
+          <param name="detectors_lagged_n" value="1"/>
+
+          <!-- Per call settings end -->
+     </settings>
+</configuration>
