@@ -224,6 +224,10 @@ COPY ./vars_diff.xml  /usr/local/freeswitch/conf/vars_diff.xml
 COPY ./freeswitch.xml /usr/local/freeswitch/conf/freeswitch.xml
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+RUN sed -i '/<X-PRE-PROCESS cmd="set" data="call_debug=false"\/>/a\\t<X-PRE-PROCESS cmd="set" data="loglevel=debug"/>' /usr/local/freeswitch/conf/vars.xml
+RUN sed -i 's/<X-PRE-PROCESS cmd="set" data="console_loglevel=info"\/>/<X-PRE-PROCESS cmd="set" data="console_loglevel=debug"\/>/' /usr/local/freeswitch/conf/vars.xml
+RUN sed -i 's/<param name="loglevel" value="notice"\/>/<param name="loglevel" value="debug"\/>/' /usr/local/freeswitch/conf/autoload_configs/switch.conf.xml
+
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
