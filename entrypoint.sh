@@ -131,4 +131,4 @@ done
     exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 fi
 
-exec "$@"
+exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
