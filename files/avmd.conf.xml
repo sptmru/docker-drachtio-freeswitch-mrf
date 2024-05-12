@@ -10,7 +10,7 @@
 
           <!-- define/undefine this to enable/disable logging of avmd
                intermediate computations to log -->
-          <param name="debug" value="0"/>
+          <param name="debug" value="1"/>
 
           <!-- define/undef this to enable/disable verbose logging (and reporting to the console)
                of detection status and other diagnostics like parameters avmd session has been started with,
@@ -22,7 +22,7 @@
                of arcus cosine - table will be created mapping floats
                to integers and returning arc cos values given these integer
                indices into table -->
-          <param name="fast_math" value="0"/>
+          <param name="fast_math" value="1"/>
           <!-- Global settings end -->
 
 
@@ -32,7 +32,7 @@
           <!-- define/undefine this to classify avmd beep detection as valid
                only when there is required number of consecutive elements
                in the SMA buffer without reset -->
-          <param name="require_continuous_streak" value="1"/>
+          <param name="require_continuous_streak" value="0"/>
 
           <!-- required number of consecutive elements in the SMA buffer
                  without reset. This parameter helps to avoid false beeps, bigger this value is
@@ -46,7 +46,7 @@
           <param name="sample_n_to_skip" value="0"/>
 
           <param name="require_continuous_streak_amp" value="0"/>
-          <param name="sample_n_continuous_streak_amp" value="3"/>
+          <param name="sample_n_continuous_streak_amp" value="1"/>
 
           <!-- define/undefine this to enable/disable simplified estimation
                      of frequency based on approximation of sin(x) with (x)
@@ -57,7 +57,7 @@
           <param name="inbound_channel" value="1"/>
 
           <!-- define/undefine to enable/disable avmd on external channel -->
-          <param name="outbound_channel" value="0"/>
+          <param name="outbound_channel" value="1"/>
 
           <!-- determines the mode of detection, default is both amplitude and frequency -->
           <param name="detection_mode" value="0"/>
