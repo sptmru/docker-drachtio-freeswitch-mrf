@@ -127,8 +127,7 @@ while :; do
   esac
 
 done
-    # exec freeswitch "$@"
-    exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+    exec freeswitch "$@"
 fi
 
-exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+exec freeswitch "$@"
