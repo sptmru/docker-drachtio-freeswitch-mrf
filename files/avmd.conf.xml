@@ -54,7 +54,7 @@
           <param name="simplified_estimation" value="1"/>
 
           <!-- define/undefine to enable/disable avmd on internal channel -->
-          <param name="inbound_channel" value="0"/>
+          <param name="inbound_channel" value="1"/>
 
           <!-- define/undefine to enable/disable avmd on external channel -->
           <param name="outbound_channel" value="1"/>
