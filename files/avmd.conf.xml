@@ -37,7 +37,7 @@
       <!-- required number of consecutive elements in the SMA buffer
                  without reset. This parameter helps to avoid false beeps, bigger this value is
                 smaller the probability of getting false detection -->
-      <param name="sample_n_continuous_streak" value="15"/>
+      <param name="sample_n_continuous_streak" value="30"/>
 
       <!-- define number of samples to skip starting from the beginning
                  of the frame and/or after reset  has happened. This serves the purpose of skipping first few
@@ -60,7 +60,7 @@
       <param name="outbound_channel" value="0"/>
 
       <!-- determines the mode of detection, default is both amplitude and frequency -->
-      <param name="detection_mode" value="2"/>
+      <param name="detection_mode" value="1"/>
 
       <!-- number of detection threads running per each avmd session -->
       <param name="detectors_n" value="32"/>
