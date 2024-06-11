@@ -46,7 +46,7 @@
       <param name="sample_n_to_skip" value="0"/>
 
       <param name="require_continuous_streak_amp" value="1"/>
-      <param name="sample_n_continuous_streak_amp" value="1000"/>
+      <param name="sample_n_continuous_streak_amp" value="2"/>
 
       <!-- define/undefine this to enable/disable simplified estimation
                  of frequency based on approximation of sin(x) with (x)
@@ -60,7 +60,7 @@
       <param name="outbound_channel" value="0"/>
 
       <!-- determines the mode of detection, default is both amplitude and frequency -->
-      <param name="detection_mode" value="1"/>
+      <param name="detection_mode" value="2"/>
 
       <!-- number of detection threads running per each avmd session -->
       <param name="detectors_n" value="32"/>
