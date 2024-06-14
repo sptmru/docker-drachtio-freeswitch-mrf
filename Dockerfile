@@ -112,34 +112,8 @@ RUN git clone --depth 1 https://github.com/dpirch/libfvad.git \
     && cd libfvad \
     && autoreconf -i && ./configure && make -j ${BUILD_CPUS} && make install
 
-FROM base-cmake AS aws-sdk-cpp
-WORKDIR /usr/local/src
-ENV LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
-RUN git clone --depth 1 --branch 1.11.283 https://github.com/aws/aws-sdk-cpp.git \
-    && cd aws-sdk-cpp \
-    && git submodule update --init --recursive
-RUN cd /usr/local/src/aws-sdk-cpp \
-    && mkdir -p build && cd build \
-    && cmake .. -DBUILD_ONLY="lexv2-runtime;transcribestreaming" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=ON -DCMAKE_CXX_FLAGS="-Wno-unused-parameter -Wno-error=nonnull -Wno-error=deprecated-declarations -Wno-error=uninitialized -Wno-error=maybe-uninitialized" \
-    && make -j ${BUILD_CPUS} && make install \
-    && mkdir -p /usr/local/lib/pkgconfig \
-    && find /usr/local/src/aws-sdk-cpp/ -type f -name "*.pc" | xargs cp -t /usr/local/lib/pkgconfig/
-
-FROM base-cmake AS aws-c-common
-WORKDIR /usr/local/src
-ENV LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
-RUN git clone --depth 1 https://github.com/awslabs/aws-c-common.git \
-    && cd aws-c-common \
-    && mkdir -p build && cd build \
-    && cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_FLAGS="-Wno-unused-parameter" \
-    && make -j ${BUILD_CPUS} && make install
-
 FROM base AS freeswitch
 COPY ./files/ /tmp/
-COPY --from=aws-c-common /usr/local/include/ /usr/local/include/
-COPY --from=aws-c-common /usr/local/lib/ /usr/local/lib/
-COPY --from=aws-sdk-cpp /usr/local/include/ /usr/local/include/
-COPY --from=aws-sdk-cpp /usr/local/lib/ /usr/local/lib/
 COPY --from=grpc /usr/local/include/ /usr/local/include/
 COPY --from=grpc /usr/local/lib/ /usr/local/lib/
 COPY --from=libfvad /usr/local/include/ /usr/local/include/
@@ -184,11 +158,9 @@ RUN cp /tmp/configure.ac.extra /usr/local/src/freeswitch/configure.ac \
     && cp /tmp/switch_event.c . \
     && cp /tmp/mod_conference.h /usr/local/src/freeswitch/src/mod/applications/mod_conference \
     && cp /tmp/conference_api.c /usr/local/src/freeswitch/src/mod/applications/mod_conference \
-    && sed -i '/#ifndef cJSON_AS4CPP__h/i #ifndef cJSON__h\n#define cJSON__h' /usr/local/include/aws/core/external/cjson/cJSON.h \
-    && echo '#endif' >> /usr/local/include/aws/core/external/cjson/cJSON.h \
     && cd /usr/local/src/freeswitch \
     && ./bootstrap.sh -j \
-    && ./configure --enable-tcmalloc=yes --with-lws=yes --with-extra=yes --with-aws=yes
+    && ./configure --enable-tcmalloc=yes --with-lws=yes --with-extra=yes
 RUN cd /usr/local/src/freeswitch \
     && make -j ${BUILD_CPUS} \
     && make install
