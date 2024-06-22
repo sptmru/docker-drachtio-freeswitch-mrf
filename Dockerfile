@@ -169,6 +169,7 @@ RUN cp /tmp/configure.ac.extra /usr/local/src/freeswitch/configure.ac \
     && cp /tmp/modules.conf.in.extra /usr/local/src/freeswitch/build/modules.conf.in \
     && cp /tmp/modules.conf.vanilla.xml.extra /usr/local/src/freeswitch/conf/vanilla/autoload_configs/modules.conf.xml \
     && cp /tmp/avmd.conf.xml /usr/local/src/freeswitch/conf/vanilla/autoload_configs/avmd_conf.xml \
+    && cp /tmp/http_cache.conf.xml /usr/local/src/freeswitch/conf/vanilla/autoload_configs/http_cache.conf.xml \
     && cp /tmp/switch_core_media.c.patch /usr/local/src/freeswitch/src \
     && cp /tmp/switch_rtp.c.patch /usr/local/src/freeswitch/src  \
     && cp /tmp/mod_avmd.c.patch /usr/local/src/freeswitch/src/mod/applications/mod_avmd \
@@ -223,11 +224,14 @@ COPY ./entrypoint.sh /entrypoint.sh
 COPY ./vars_diff.xml  /usr/local/freeswitch/conf/vars_diff.xml
 COPY ./freeswitch.xml /usr/local/freeswitch/conf/freeswitch.xml
 COPY ./files/avmd.conf.xml /usr/local/freeswitch/conf/autoload_configs/avmd.conf.xml
+COPY ./files/http_cache.conf.xml /usr/local/freeswitch/conf/autoload_configs/http_cache.conf.xml
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN sed -i '/<X-PRE-PROCESS cmd="set" data="call_debug=false"\/>/a\\t<X-PRE-PROCESS cmd="set" data="loglevel=debug"/>' /usr/local/freeswitch/conf/vars.xml
 RUN sed -i 's/<X-PRE-PROCESS cmd="set" data="console_loglevel=info"\/>/<X-PRE-PROCESS cmd="set" data="console_loglevel=debug"\/>/' /usr/local/freeswitch/conf/vars.xml
 RUN sed -i 's/<param name="loglevel" value="notice"\/>/<param name="loglevel" value="debug"\/>/' /usr/local/freeswitch/conf/autoload_configs/switch.conf.xml
+
+RUN mkdir /usr/local/freeswitch/http_cache
 
 RUN chmod +x /entrypoint.sh
 

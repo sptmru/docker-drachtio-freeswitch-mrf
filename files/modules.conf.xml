@@ -78,6 +78,7 @@
     <!--<load module="mod_smpp"/>-->
     <!--<load module="mod_random"/>-->
     <load module="mod_httapi"/>
+    <load module="mod_http_cache"/>
     <!--<load module="mod_translate"/>-->
 
     <!-- SNOM Module -->
@@ -98,7 +99,7 @@
     <!-- <load module="mod_amr"/> -->
     <!--<load module="mod_ilbc"/>-->
     <!--<load module="mod_h26x"/>-->
-   <!-- <load module="mod_b64"/> -->
+    <!-- <load module="mod_b64"/> -->
     <!--<load module="mod_siren"/>-->
     <!--<load module="mod_isac"/>-->
     <!--<load module="mod_opus"/> -->
@@ -134,7 +135,7 @@
     <!-- <load module="mod_rss"/> -->
 
     <!-- Say -->
-   <!-- <load module="mod_say_en"/> -->
+    <!-- <load module="mod_say_en"/> -->
     <!-- <load module="mod_say_ru"/> -->
     <!-- <load module="mod_say_zh"/> -->
     <!-- <load module="mod_say_sv"/> -->
