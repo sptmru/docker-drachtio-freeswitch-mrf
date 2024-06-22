@@ -99,6 +99,7 @@
       <!--<load module="mod_smpp"/>-->
       <!--<load module="mod_random"/>-->
       <load module="mod_httapi"/>
+      <load module="mod_http_cache"/>
       <!--<load module="mod_translate"/>-->
 
       <!-- SNOM Module -->
