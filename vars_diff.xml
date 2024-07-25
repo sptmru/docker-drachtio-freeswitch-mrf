@@ -7,4 +7,9 @@
   <X-PRE-PROCESS cmd="set" data="ext_rtp_ip=$${local_ip_v4}"/>
   <X-PRE-PROCESS cmd="set" data="ext_sip_ip=$${local_ip_v4}"/>
 
+  <X-PRE-PROCESS cmd="set" data="rtp-timeout-sec=300" />
+  <X-PRE-PROCESS cmd="set" data="rtp-hold-timeout-sec=600" />
+  <X-PRE-PROCESS cmd="set" data="progress_timeout=300" />
+
+
 </include>
