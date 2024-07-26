@@ -229,7 +229,7 @@ COPY ./files/http_cache.conf.xml /usr/local/freeswitch/conf/autoload_configs/htt
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Install Node.js
-RUN apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+RUN apt-get update && apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y nodejs
 
 # Copy Node.js script and package files
