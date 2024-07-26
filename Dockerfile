@@ -214,18 +214,37 @@ COPY --from=freeswitch /usr/local/freeswitch/ /usr/local/freeswitch/
 COPY --from=freeswitch /usr/local/bin/ /usr/local/bin/
 COPY --from=freeswitch /usr/local/lib/ /usr/local/lib/
 COPY --from=freeswitch $LIB_DIR/ /usr/lib/
-RUN apt update && apt install -y --quiet --no-install-recommends ca-certificates libsqlite3-0 libcurl4 libpcre3 libspeex1 libspeexdsp1 libedit2 libtiff5 libopus0 libsndfile1 libshout3 supervisor \
+RUN apt update && apt install -y --quiet --no-install-recommends ca-certificates libsqlite3-0 libcurl4 libpcre3 libspeex1 libspeexdsp1 libedit2 libtiff5 libopus0 libsndfile1 libshout3 cron supervisor \
     && ldconfig && rm -rf /var/lib/apt/lists/*
 
 ENV PATH="/usr/local/freeswitch/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
 
+# Copy necessary files
 COPY ./entrypoint.sh /entrypoint.sh
 COPY ./vars_diff.xml  /usr/local/freeswitch/conf/vars_diff.xml
 COPY ./freeswitch.xml /usr/local/freeswitch/conf/freeswitch.xml
 COPY ./files/avmd.conf.xml /usr/local/freeswitch/conf/autoload_configs/avmd.conf.xml
 COPY ./files/http_cache.conf.xml /usr/local/freeswitch/conf/autoload_configs/http_cache.conf.xml
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs
+
+# Copy Node.js script and package files
+COPY ./clear-calls/package.json /usr/local/src/package.json
+COPY ./clear-calls/package-lock.json /usr/local/src/package-lock.json
+COPY ./clear-calls/clear-calls.js /usr/local/src/build/clear-calls.js
+
+# Install Node.js dependencies
+WORKDIR /usr/local/src
+RUN npm install
+
+# Setup cron job
+RUN echo "*/10 * * * * root /usr/bin/node /usr/local/src/build/clear-calls.js >> /var/log/cron.log 2>&1" > /etc/cron.d/clear_calls \
+    && chmod 0644 /etc/cron.d/clear_calls \
+    && touch /var/log/cron.log
 
 RUN sed -i '/<X-PRE-PROCESS cmd="set" data="call_debug=false"\/>/a\\t<X-PRE-PROCESS cmd="set" data="loglevel=debug"/>' /usr/local/freeswitch/conf/vars.xml
 RUN sed -i 's/<X-PRE-PROCESS cmd="set" data="console_loglevel=info"\/>/<X-PRE-PROCESS cmd="set" data="console_loglevel=debug"\/>/' /usr/local/freeswitch/conf/vars.xml
