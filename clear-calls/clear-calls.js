@@ -18,9 +18,9 @@ const calls = execSync(`/usr/local/freeswitch/bin/fs_cli -p ${pwd} -x "show call
       duration
     }
   })
-  .filter((c) => c.duration > 60 * 60 * 3);
+  .filter((c) => c.duration > 15);
 
-console.log(`clearing ${calls.length} old calls longer than 3 hours`);
+console.log(`clearing ${calls.length} old calls longer than 15 minutes`);
 for (const call of calls) {
   const cmd = `/usr/local/freeswitch/bin/fs_cli -p ${pwd} -x "uuid_kill ${call.uuid}"`;
   if (dryRun) console.log(cmd);
