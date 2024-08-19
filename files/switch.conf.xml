@@ -46,7 +46,7 @@
     <param name="db-handle-timeout" value="10"/>
 
     <!-- Minimum idle CPU before refusing calls -->
-    <param name="min-idle-cpu" value="35"/>
+    <param name="min-idle-cpu" value="25"/>
 
     <!-- Interval between heartbeat events -->
     <!-- <param name="event-heartbeat-interval" value="20"/> -->
@@ -58,9 +58,9 @@
 	this will ensure you're able to use the entire DS3 without a problem.  Otherwise you'll
 	be 144 channels short of always filling that DS3 up which can translate into waste.
     -->
-    <param name="max-sessions" value="400"/>
+    <param name="max-sessions" value="100"/>
     <!--Most channels to create per second -->
-    <param name="sessions-per-second" value="30"/>
+    <param name="sessions-per-second" value="10"/>
     <!-- Default Global Log Level - value is one of debug,info,notice,warning,err,crit,alert -->
     <param name="loglevel" value="notice"/>
 
